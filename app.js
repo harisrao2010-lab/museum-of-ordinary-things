@@ -5,6 +5,8 @@ const storyField = document.querySelector('#object-story');
 const grid = document.querySelector('#exhibit-grid');
 const emptyState = document.querySelector('#empty-state');
 const collectionMessage = document.querySelector('#collection-message');
+const menuToggle = document.querySelector('#menu-toggle');
+const siteNav = document.querySelector('#site-nav');
 const prompts = [
   'What sound would you put in a jar and keep?',
   'What tiny kindness do you still remember?',
@@ -112,7 +114,7 @@ form.addEventListener('submit', event => {
   }
   const room = form.querySelector('input[name="room"]:checked')?.value || 'Warm & golden';
   const date = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' }).format(new Date());
-  exhibits.unshift({ id: crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`, name, story, room, date });
+  exhibits.unshift({ id: globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`, name, story, room, date });
   exhibits = exhibits.slice(0, 60);
   const saved = persist();
   render();
@@ -151,10 +153,64 @@ document.querySelector('#share-museum').addEventListener('click', async () => {
 
 document.querySelector('#clear-collection').addEventListener('click', () => {
   if (exhibits.length === 0) return;
+  if (!window.confirm('Clear all exhibits saved in this browser? This cannot be undone unless you have a backup.')) return;
   exhibits = [];
   try { localStorage.removeItem(storageKey); } catch { /* Local storage is optional. */ }
   document.querySelector('#form-success').textContent = 'Your museum is clear. There is always room to start again.';
   render();
+});
+
+document.querySelector('#download-backup').addEventListener('click', () => {
+  const backup = new Blob([JSON.stringify({ format: 'museum-of-ordinary-things', version: 1, exhibits }, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(backup);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'museum-of-ordinary-things-backup.json';
+  link.click();
+  URL.revokeObjectURL(url);
+  collectionMessage.textContent = 'Backup downloaded to this device.';
+});
+
+document.querySelector('#restore-file').addEventListener('change', async event => {
+  const file = event.currentTarget.files?.[0];
+  if (!file) return;
+  try {
+    const backup = JSON.parse(await file.text());
+    const records = Array.isArray(backup) ? backup : backup?.exhibits;
+    if (!Array.isArray(records) || records.length > 1000) throw new Error('Invalid backup');
+    const valid = records.filter(item => item && typeof item.name === 'string' && typeof item.story === 'string' && typeof item.room === 'string' && typeof item.date === 'string')
+      .slice(0, 60).map(item => ({
+        id: typeof item.id === 'string' ? item.id : `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        name: item.name.slice(0, 48), story: item.story.slice(0, 180),
+        room: rooms[item.room] ? item.room : 'Warm & golden', date: item.date.slice(0, 40)
+      }));
+    if (!valid.length && records.length) throw new Error('No usable exhibits');
+    if (exhibits.length && !window.confirm('Replace the exhibits currently saved in this browser with this backup?')) {
+      event.currentTarget.value = '';
+      return;
+    }
+    exhibits = valid;
+    const saved = persist();
+    render();
+    collectionMessage.textContent = saved ? `${valid.length} exhibit${valid.length === 1 ? '' : 's'} restored from backup.` : 'The backup was read, but this browser could not save it.';
+  } catch {
+    collectionMessage.textContent = 'That backup could not be read. Choose a Museum backup JSON file and try again.';
+  }
+  event.currentTarget.value = '';
+});
+
+menuToggle.addEventListener('click', () => {
+  const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+  menuToggle.setAttribute('aria-expanded', String(!expanded));
+  siteNav.classList.toggle('is-open', !expanded);
+  menuToggle.textContent = expanded ? 'Menu' : 'Close';
+});
+siteNav.addEventListener('click', event => {
+  if (event.target.closest('a')) {
+    menuToggle.setAttribute('aria-expanded', 'false');
+    siteNav.classList.remove('is-open');
+    menuToggle.textContent = 'Menu';
+  }
 });
 
 function playChime() {
