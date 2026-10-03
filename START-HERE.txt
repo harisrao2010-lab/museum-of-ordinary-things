@@ -1,0 +1,11 @@
+MUSEUM OF ORDINARY THINGS WEBSITE
+
+This is a static website. It can run on a free static host subdomain, so buying a domain is optional. To publish it, upload all files in this folder together to a host.
+
+Before launch:
+- No custom domain is configured yet.
+- Add accurate owner contact information and review the privacy notice before advertising, analytics, or other data collection are introduced.
+- Exhibits are stored only in each visitor's browser. The site has no public feed or account system.
+- For advertising, first publish the site, create and verify your own publisher account, add the live domain for review, and only then add the ad provider's code. The site currently has no ad code.
+
+Traffic and revenue are not guaranteed. A new site generally needs useful content, distribution, and time to build an audience. To accept payments, connect a payment provider account in your own name and configure its payout settings directly with that provider. Never share passwords or secret API keys in chat.
