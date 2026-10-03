@@ -4,6 +4,7 @@ const nameField = document.querySelector('#object-name');
 const storyField = document.querySelector('#object-story');
 const grid = document.querySelector('#exhibit-grid');
 const emptyState = document.querySelector('#empty-state');
+const collectionMessage = document.querySelector('#collection-message');
 const prompts = [
   'What sound would you put in a jar and keep?',
   'What tiny kindness do you still remember?',
@@ -60,6 +61,31 @@ function render() {
     const footer = document.createElement('footer');
     const label = document.createElement('span');
     label.textContent = `${exhibit.room} · ${exhibit.date}`;
+    const actions = document.createElement('div');
+    actions.className = 'exhibit-actions';
+    const share = document.createElement('button');
+    share.type = 'button';
+    share.textContent = 'SHARE';
+    share.setAttribute('aria-label', `Share exhibit: ${exhibit.name}`);
+    share.addEventListener('click', async () => {
+      const url = location.href.split('#')[0];
+      const shareText = `“${exhibit.name}”\n${exhibit.story}\nFrom The Museum of Ordinary Things.`;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: exhibit.name, text: shareText, url });
+          collectionMessage.textContent = 'Your device shared the exhibit you chose.';
+        } else if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(`${shareText}\n${url}`);
+          collectionMessage.textContent = 'Exhibit text and website link copied. Share them wherever you like.';
+        } else {
+          collectionMessage.textContent = 'Sharing is not available in this browser. You can still copy the exhibit text yourself.';
+        }
+      } catch (error) {
+        if (error?.name !== 'AbortError') {
+          collectionMessage.textContent = 'The share did not complete. Your exhibit is still saved here.';
+        }
+      }
+    });
     const remove = document.createElement('button');
     remove.type = 'button';
     remove.textContent = 'REMOVE';
@@ -69,7 +95,8 @@ function render() {
       persist();
       render();
     });
-    footer.append(label, remove);
+    actions.append(share, remove);
+    footer.append(label, actions);
     card.append(title, story, footer);
     grid.append(card);
   }

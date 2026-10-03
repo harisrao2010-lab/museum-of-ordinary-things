@@ -1,11 +1,12 @@
 MUSEUM OF ORDINARY THINGS WEBSITE
 
-This is a static website. It can run on a free static host subdomain, so buying a domain is optional. To publish it, upload all files in this folder together to a host.
+This is a static website. It is published on the free GitHub Pages address https://harisrao2010-lab.github.io/museum-of-ordinary-things/. The address is public, and the source repository is public too.
 
 Before launch:
-- No custom domain is configured yet.
+- No custom domain is configured.
 - Add accurate owner contact information and review the privacy notice before advertising, analytics, or other data collection are introduced.
 - Exhibits are stored only in each visitor's browser. The site has no public feed or account system.
+- Visitors can explicitly share an exhibit from their device. The website does not post visitor entries automatically.
 - For advertising, first publish the site, create and verify your own publisher account, add the live domain for review, and only then add the ad provider's code. The site currently has no ad code.
 
 Traffic and revenue are not guaranteed. A new site generally needs useful content, distribution, and time to build an audience. To accept payments, connect a payment provider account in your own name and configure its payout settings directly with that provider. Never share passwords or secret API keys in chat.

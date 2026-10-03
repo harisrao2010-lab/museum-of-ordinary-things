@@ -6,3 +6,4 @@
 
 .empty-state[hidden]{display:none}
 
+.exhibit-actions{display:flex;gap:10px}.exhibit-actions button{border:0;background:none;color:#8a7c65;cursor:pointer;font:8px var(--mono);letter-spacing:.04em;padding:3px 0}.exhibit-actions button:hover{color:var(--rust)}#collection-message{font:italic 12px var(--serif)}

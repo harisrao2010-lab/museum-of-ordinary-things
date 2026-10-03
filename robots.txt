@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://harisrao2010-lab.github.io/museum-of-ordinary-things/sitemap.xml
