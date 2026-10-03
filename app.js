@@ -130,6 +130,25 @@ document.querySelector('#new-prompt').addEventListener('click', () => {
   prompt.textContent = options[Math.floor(Math.random() * options.length)];
 });
 
+document.querySelector('#share-museum').addEventListener('click', async () => {
+  const shareUrl = location.href.split('#')[0];
+  const shareText = 'A tiny online museum for the little moments worth keeping.';
+  const feedback = document.querySelector('#share-feedback');
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: 'The Museum of Ordinary Things', text: shareText, url: shareUrl });
+      feedback.textContent = 'Thanks for passing the museum along.';
+    } else if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+      feedback.textContent = 'Museum link copied. Share it wherever you like.';
+    } else {
+      feedback.textContent = 'Copy this link to share the museum: ' + shareUrl;
+    }
+  } catch (error) {
+    if (error?.name !== 'AbortError') feedback.textContent = 'The share did not complete. The museum is still here whenever you want it.';
+  }
+});
+
 document.querySelector('#clear-collection').addEventListener('click', () => {
   if (exhibits.length === 0) return;
   exhibits = [];
