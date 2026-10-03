@@ -5,6 +5,7 @@ const storyField = document.querySelector('#object-story');
 const grid = document.querySelector('#exhibit-grid');
 const emptyState = document.querySelector('#empty-state');
 const sampleGallery = document.querySelector('#sample-gallery');
+const collectionLabel = document.querySelector('#collection-label');
 const collectionMessage = document.querySelector('#collection-message');
 const menuToggle = document.querySelector('#menu-toggle');
 const siteNav = document.querySelector('#site-nav');
@@ -52,7 +53,8 @@ function persist() {
 function render() {
   grid.replaceChildren();
   document.querySelector('#nav-count').textContent = `(${exhibits.length})`;
-  document.querySelector('#collection-count').textContent = String(exhibits.length);
+  document.querySelector('#collection-count').textContent = String(exhibits.length || 3);
+  collectionLabel.textContent = exhibits.length ? 'YOUR EXHIBITS' : 'STARTER EXAMPLES';
   emptyState.hidden = exhibits.length > 0;
   sampleGallery.hidden = exhibits.length > 0;
   for (const exhibit of exhibits) {
