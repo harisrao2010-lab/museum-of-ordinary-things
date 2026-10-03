@@ -12,3 +12,5 @@ Before launch:
 Traffic and revenue are not guaranteed. A new site generally needs useful content, distribution, and time to build an audience. To accept payments, connect a payment provider account in your own name and configure its payout settings directly with that provider. Never share passwords or secret API keys in chat.
 
 Recent improvements: mobile navigation, keyboard focus helpers, and private JSON backup/restore controls. Backup files contain the exhibit text, so keep them somewhere private.
+
+Search guide: guide.html is linked from the homepage and included in sitemap.xml. It answers practical questions about keeping everyday memories in a private digital collection.
