@@ -4,6 +4,7 @@ const nameField = document.querySelector('#object-name');
 const storyField = document.querySelector('#object-story');
 const grid = document.querySelector('#exhibit-grid');
 const emptyState = document.querySelector('#empty-state');
+const sampleGallery = document.querySelector('#sample-gallery');
 const collectionMessage = document.querySelector('#collection-message');
 const menuToggle = document.querySelector('#menu-toggle');
 const siteNav = document.querySelector('#site-nav');
@@ -53,6 +54,7 @@ function render() {
   document.querySelector('#nav-count').textContent = `(${exhibits.length})`;
   document.querySelector('#collection-count').textContent = String(exhibits.length);
   emptyState.hidden = exhibits.length > 0;
+  sampleGallery.hidden = exhibits.length > 0;
   for (const exhibit of exhibits) {
     const card = document.createElement('article');
     card.className = `exhibit-card ${rooms[exhibit.room] || ''}`;

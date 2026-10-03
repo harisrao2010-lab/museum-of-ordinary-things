@@ -8,7 +8,10 @@
 :focus-visible{outline:2px solid var(--rust);outline-offset:4px}
 .menu-toggle{display:none}
 .collection-tools{display:flex;gap:18px;align-items:center;padding:0 0 8px}.collection-tools button,.restore-backup{border:0;background:none;color:#756e60;font:9px var(--mono);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:8px 0}.restore-backup input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.restore-backup:focus-within{outline:2px solid var(--rust);outline-offset:4px}.backup-note{font-size:10px;line-height:1.6;color:#928c7d;margin:0 0 4px}
+.sample-gallery[hidden]{display:none}.sample-gallery{padding:0 0 30px}.sample-heading{font:8px var(--mono);letter-spacing:.12em;color:#8a806e;margin:3px 0 13px}.sample-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.sample-card{background:#f7f1e5;border:1px solid #d8cebd;padding:20px;min-height:160px}.sample-card>span{font:7px var(--mono);letter-spacing:.07em;color:#998d79}.sample-card h3{font:500 21px/1.2 var(--serif);margin:24px 0 9px}.sample-card p{font:11px/1.65 var(--sans);color:var(--muted);margin:0}.sample-note{font:italic 11px/1.6 var(--serif);color:#817765;margin:12px 0 0}
 @media(max-width:800px){.site-header{position:relative}.menu-toggle{display:block;border:1px solid var(--rule);background:transparent;padding:8px 10px;color:var(--ink);font:9px var(--mono);text-transform:uppercase;letter-spacing:.08em}.site-header nav{display:none;position:absolute;z-index:10;top:calc(100% - 1px);left:0;right:0;padding:16px 20px;background:var(--paper);border:1px solid var(--rule);box-shadow:0 12px 20px #25251f12;flex-direction:column;gap:18px}.site-header nav.is-open{display:flex}.site-header nav a{font-size:13px}.sound-toggle{font-size:8px}.collection-tools{flex-wrap:wrap}}
+@media(max-width:800px){.sample-grid{grid-template-columns:1fr 1fr;gap:12px}.sample-card{padding:16px;min-height:150px}.sample-card h3{font-size:18px}}
+@media(max-width:440px){.sample-grid{grid-template-columns:1fr}.sample-card{min-height:unset}}
 
 .empty-state[hidden]{display:none}
 
